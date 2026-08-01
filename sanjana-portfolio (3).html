@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanjana Reddy — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A0A1F;
+    --void-2:#120B2E;
+    --glass:rgba(255,255,255,0.055);
+    --glass-brd:rgba(255,255,255,0.12);
+    --glass-hi:rgba(255,255,255,0.09);
+    --text-hi:#F6F4FF;
+    --text-mid:#B7B2DA;
+    --text-dim:#726C99;
+    --violet:#8B5CF6;
+    --cyan:#22D3EE;
+    --pink:#F472B6;
+    --radius:20px;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--void);
+    color:var(--text-hi);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+    position:relative;
+  }
+  ::selection{ background:var(--violet); color:#fff; }
+  a{ color:inherit; text-decoration:none; }
+  h1,h2,h3{ font-family:'Plus Jakarta Sans', sans-serif; letter-spacing:-0.02em; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .wrap{ max-width:1100px; margin:0 auto; padding:0 32px; position:relative; z-index:2; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  /* ---------- AMBIENT BACKGROUND ---------- */
+  .bg-mesh{ position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+  .blob{ position:absolute; border-radius:50%; filter:blur(90px); opacity:0.55; }
+  .blob-1{ width:520px; height:520px; top:-160px; left:-120px; background:radial-gradient(circle, var(--violet), transparent 70%); animation:float1 22s ease-in-out infinite; }
+  .blob-2{ width:460px; height:460px; top:200px; right:-160px; background:radial-gradient(circle, var(--cyan), transparent 70%); animation:float2 26s ease-in-out infinite; }
+  .blob-3{ width:400px; height:400px; bottom:-140px; left:30%; background:radial-gradient(circle, var(--pink), transparent 70%); animation:float3 30s ease-in-out infinite; opacity:0.4; }
+  @keyframes float1{ 0%,100%{ transform:translate(0,0); } 50%{ transform:translate(60px,80px); } }
+  @keyframes float2{ 0%,100%{ transform:translate(0,0); } 50%{ transform:translate(-70px,60px); } }
+  @keyframes float3{ 0%,100%{ transform:translate(0,0); } 50%{ transform:translate(40px,-60px); } }
+  .grain{ position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.03;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* ---------- NAV ---------- */
+  nav{ position:sticky; top:0; z-index:50; background:rgba(10,10,31,0.65); backdrop-filter:blur(16px); border-bottom:1px solid var(--glass-brd); }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:70px; }
+  .brand{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:16.5px; display:flex; align-items:center; gap:10px; }
+  .brand .mark{ width:34px; height:28px; border-radius:9px; background:linear-gradient(135deg, var(--violet), var(--cyan)); display:flex; align-items:center; justify-content:center; color:#0A0A1F; font-size:10.5px; font-weight:800; flex-shrink:0; }
+  .navlinks{ display:flex; gap:30px; font-size:14px; color:var(--text-mid); }
+  .navlinks a{ transition:color 0.2s; }
+  .navlinks a:hover{ color:var(--cyan); }
+  .nav-cta{ font-size:13.5px; font-weight:600; background:linear-gradient(135deg, var(--violet), var(--pink)); color:#fff; padding:10px 20px; border-radius:100px; transition:transform 0.15s, box-shadow 0.2s; box-shadow:0 6px 18px -6px rgba(139,92,246,0.6); }
+  .nav-cta:hover{ transform:translateY(-2px); box-shadow:0 10px 22px -6px rgba(139,92,246,0.7); }
+
+  /* ---------- HERO ---------- */
+  header.hero{ padding:110px 0 90px; }
+  .eyebrow{ display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--cyan);
+    border:1px solid var(--glass-brd); background:var(--glass); padding:7px 14px; border-radius:100px; margin-bottom:28px; backdrop-filter:blur(10px); }
+  .eyebrow .live-dot{ width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 10px var(--cyan); animation:pulse 2s infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.3; } }
+
+  .hero-grid{ display:grid; grid-template-columns:1.25fr 0.75fr; gap:52px; align-items:center; }
+  h1.title{ font-size:clamp(36px,5vw,56px); line-height:1.08; margin-bottom:22px; font-weight:800; }
+  h1.title .hl{ background:linear-gradient(90deg, var(--violet), var(--cyan) 60%, var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero p.lede{ font-size:17px; color:var(--text-mid); max-width:520px; margin-bottom:32px; }
+  .hero-cta{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{ display:inline-flex; align-items:center; gap:8px; padding:14px 24px; border-radius:12px; font-size:14px; font-weight:600; transition:transform 0.15s ease, box-shadow 0.2s, border-color 0.2s; }
+  .btn-primary{ background:linear-gradient(135deg, var(--violet), var(--pink)); color:#fff; box-shadow:0 10px 26px -8px rgba(139,92,246,0.65); }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 30px -8px rgba(139,92,246,0.75); }
+  .btn-ghost{ border:1px solid var(--glass-brd); color:var(--text-hi); background:var(--glass); backdrop-filter:blur(10px); }
+  .btn-ghost:hover{ border-color:var(--cyan); color:var(--cyan); transform:translateY(-2px); }
+
+  /* Signature: glass gauge orb */
+  .gauge-card{ background:var(--glass); border:1px solid var(--glass-brd); border-radius:24px; backdrop-filter:blur(18px); padding:28px; box-shadow:0 20px 60px -20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08); }
+  .gauge-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+  .gauge-top .lbl{ font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.06em; }
+  .gauge-top .status{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--cyan); background:rgba(34,211,238,0.12); border:1px solid rgba(34,211,238,0.3); padding:4px 10px; border-radius:100px; }
+  .gauge-wrap{ display:flex; justify-content:center; margin:12px 0 20px; }
+  .gauge{ width:168px; height:168px; position:relative; }
+  .gauge svg{ transform:rotate(-90deg); width:100%; height:100%; filter:drop-shadow(0 0 14px rgba(139,92,246,0.5)); }
+  .gauge .track{ fill:none; stroke:rgba(255,255,255,0.08); stroke-width:10; }
+  .gauge .fill{ fill:none; stroke:url(#gaugeGrad); stroke-width:10; stroke-linecap:round; stroke-dasharray:377; stroke-dashoffset:377; animation:fillGauge 1.8s cubic-bezier(.2,.8,.2,1) 0.3s forwards; }
+  @keyframes fillGauge{ to{ stroke-dashoffset:15; } }
+  .gauge-num{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .gauge-num .n{ font-family:'Plus Jakarta Sans', sans-serif; font-size:36px; font-weight:800; color:var(--text-hi); }
+  .gauge-num .s{ font-size:11px; color:var(--text-dim); margin-top:-2px; }
+  .gauge-rows{ display:flex; flex-direction:column; gap:11px; }
+  .gauge-row{ display:flex; justify-content:space-between; font-size:12.5px; color:var(--text-mid); }
+  .gauge-row span:last-child{ color:var(--text-hi); font-weight:600; font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- SECTION ---------- */
+  .section{ padding:80px 0; border-top:1px solid var(--glass-brd); }
+  .section-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:42px; }
+  .section-head .tag{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--cyan); }
+  .section-head h2{ font-size:28px; font-weight:800; }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; }
+  .about-grid > p{ color:var(--text-mid); font-size:15.5px; }
+  .facts{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .fact{ border:1px solid var(--glass-brd); border-radius:16px; padding:20px; background:var(--glass); backdrop-filter:blur(14px); transition:transform 0.2s, border-color 0.2s; }
+  .fact:hover{ transform:translateY(-3px); border-color:rgba(139,92,246,0.5); }
+  .fact .num{ font-family:'Plus Jakarta Sans', sans-serif; font-size:23px; font-weight:800; background:linear-gradient(90deg, var(--violet), var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .fact .lbl{ font-size:12.5px; color:var(--text-mid); margin-top:5px; }
+
+  /* ---------- SKILLS ---------- */
+  .skill-cols{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  .skill-col{ background:var(--glass); border:1px solid var(--glass-brd); border-radius:16px; padding:18px; backdrop-filter:blur(14px); transition:border-color 0.2s, transform 0.2s; }
+  .skill-col:hover{ border-color:rgba(34,211,238,0.4); transform:translateY(-3px); }
+  .skill-col h3{ font-size:12px; color:var(--text-dim); font-weight:600; margin-bottom:13px; text-transform:uppercase; letter-spacing:0.05em; font-family:'JetBrains Mono', monospace; }
+  .chip-list{ display:flex; flex-direction:column; gap:8px; }
+  .chip{ font-size:13.5px; padding:8px 11px; border-radius:9px; background:rgba(255,255,255,0.045); color:var(--text-hi); border:1px solid transparent; }
+
+  /* ---------- PROJECTS: pipeline story ---------- */
+  .pipeline{ position:relative; }
+  .pipeline::before{ content:''; position:absolute; left:29px; top:16px; bottom:16px; width:2px; background:linear-gradient(var(--violet), var(--cyan)); opacity:0.4; }
+  .proj-item{ display:grid; grid-template-columns:60px 1fr; gap:22px; margin-bottom:28px; }
+  .proj-item:last-child{ margin-bottom:0; }
+  .proj-num{ width:60px; height:60px; border-radius:18px; background:var(--glass); border:1px solid var(--glass-brd); backdrop-filter:blur(14px); display:flex; align-items:center; justify-content:center; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:18px; color:var(--violet); position:relative; z-index:1; box-shadow:0 0 20px -6px rgba(139,92,246,0.5); }
+  .proj-item.v2 .proj-num{ color:var(--cyan); box-shadow:0 0 20px -6px rgba(34,211,238,0.5); }
+  .proj-card{ background:var(--glass); border:1px solid var(--glass-brd); border-radius:20px; backdrop-filter:blur(16px); padding:30px 32px; transition:border-color 0.25s, transform 0.25s; }
+  .proj-card:hover{ transform:translateY(-4px); border-color:rgba(139,92,246,0.4); }
+  .proj-item.v2 .proj-card:hover{ border-color:rgba(34,211,238,0.4); }
+  .proj-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:12px; flex-wrap:wrap; }
+  .proj-top h3{ font-size:21px; font-weight:700; }
+  .badge{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--violet); background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.3); padding:5px 11px; border-radius:100px; white-space:nowrap; height:fit-content; }
+  .proj-item.v2 .badge{ color:var(--cyan); background:rgba(34,211,238,0.12); border-color:rgba(34,211,238,0.3); }
+  .proj-card p.desc{ color:var(--text-mid); font-size:14.5px; margin-bottom:16px; }
+  .stack{ display:flex; flex-wrap:wrap; gap:9px; }
+  .stack span{ font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--text-mid); border:1px solid var(--glass-brd); background:rgba(255,255,255,0.04); padding:5px 11px; border-radius:7px; }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{ position:relative; padding-left:30px; }
+  .timeline::before{ content:''; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background:var(--glass-brd); }
+  .tl-item{ position:relative; margin-bottom:32px; }
+  .tl-item:last-child{ margin-bottom:0; }
+  .tl-item::before{ content:''; position:absolute; left:-30px; top:5px; width:12px; height:12px; border-radius:50%; background:var(--void); border:2px solid var(--violet); box-shadow:0 0 10px rgba(139,92,246,0.6); }
+  .tl-item h3{ font-size:17px; margin-bottom:4px; font-weight:700; }
+  .tl-item .meta{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--cyan); margin-bottom:6px; }
+  .tl-item p{ color:var(--text-mid); font-size:14px; }
+
+  /* ---------- CERTS / EXPERIENCE ---------- */
+  .cert-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  .cert{ display:flex; align-items:center; gap:13px; border:1px solid var(--glass-brd); border-radius:14px; padding:16px 18px; background:var(--glass); backdrop-filter:blur(14px); transition:transform 0.2s, border-color 0.2s; }
+  .cert:hover{ transform:translateY(-2px); border-color:rgba(139,92,246,0.4); }
+  .cert .stamp{ flex-shrink:0; width:32px; height:32px; }
+  .cert p{ font-size:13.5px; color:var(--text-hi); font-weight:500; }
+
+  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  .card-lite{ border-left:2px solid var(--violet); padding-left:20px; margin-bottom:26px; }
+  .card-lite:last-child{ margin-bottom:0; }
+  .card-lite h3{ font-size:16px; margin-bottom:6px; font-weight:700; }
+  .card-lite p{ font-size:13.5px; color:var(--text-mid); margin-bottom:4px; }
+  .card-lite .when{ font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--cyan); margin-bottom:6px; display:block; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:100px 0 60px; text-align:center; }
+  footer h2{ font-size:clamp(30px,4.4vw,46px); margin-bottom:20px; font-weight:800; }
+  footer h2 .hl{ background:linear-gradient(90deg, var(--violet), var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  footer p{ color:var(--text-mid); margin-bottom:34px; }
+  .contact-row{ display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:60px; }
+  .foot-bottom{ border-top:1px solid var(--glass-brd); padding-top:24px; display:flex; justify-content:space-between; color:var(--text-dim); font-size:12.5px; font-family:'JetBrains Mono', monospace; flex-wrap:wrap; gap:10px; }
+
+  @media (max-width:820px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .gauge-card{ max-width:320px; margin:0 auto; }
+    .about-grid{ grid-template-columns:1fr; }
+    .skill-cols{ grid-template-columns:1fr 1fr; }
+    .cert-grid{ grid-template-columns:1fr; }
+    .two-col{ grid-template-columns:1fr; }
+    .navlinks{ display:none; }
+    .proj-item{ grid-template-columns:46px 1fr; }
+    .proj-num{ width:46px; height:46px; font-size:15px; border-radius:13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-mesh">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+<div class="grain"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="mark">MSR</span> Mamidala Sanjana Reddy</div>
+    <div class="navlinks">
+      <a href="javascript:void(0)" onclick="scrollToSection('about');return false;">About</a>
+      <a href="javascript:void(0)" onclick="scrollToSection('work');return false;">Work</a>
+      <a href="javascript:void(0)" onclick="scrollToSection('education');return false;">Education</a>
+      <a href="javascript:void(0)" onclick="scrollToSection('credentials');return false;">Credentials</a>
+    </div>
+    <a class="nav-cta" href="mailto:sanjanamaidala128@gmail.com">Hire me</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="live-dot"></span> OPEN TO DATA SCIENCE / AI-ML ROLES · 2027</div>
+      <h1 class="title">Teaching machines to <span class="hl">read resumes</span> the way recruiters do.</h1>
+      <p class="lede">I'm Sanjana, a Computer Science (Data Science) undergraduate who builds NLP and agentic AI systems that make hiring faster and fairer — starting with the resume screen itself.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="javascript:void(0)" onclick="scrollToSection('work');return false;">See the projects</a>
+        <a class="btn btn-ghost" href="mailto:sanjanamaidala128@gmail.com">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="gauge-card">
+      <div class="gauge-top">
+        <span class="lbl">Candidate Match</span>
+        <span class="status">Strong fit</span>
+      </div>
+      <div class="gauge-wrap">
+        <div class="gauge">
+          <svg viewBox="0 0 140 140">
+            <defs>
+              <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#8B5CF6"/>
+                <stop offset="100%" stop-color="#22D3EE"/>
+              </linearGradient>
+            </defs>
+            <circle class="track" cx="70" cy="70" r="60"/>
+            <circle class="fill" cx="70" cy="70" r="60"/>
+          </svg>
+          <div class="gauge-num"><div class="n">96%</div><div class="s">match score</div></div>
+        </div>
+      </div>
+      <div class="gauge-rows">
+        <div class="gauge-row"><span>Skills matched</span><span>11 / 12</span></div>
+        <div class="gauge-row"><span>Core stack</span><span>Python · NLP · ML</span></div>
+        <div class="gauge-row"><span>Status</span><span style="color:#22D3EE;">Shortlisted</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head"><span class="tag mono">01</span><h2>About</h2></div>
+    <div class="about-grid">
+      <p>I'm drawn to the point where language meets decisions — where a paragraph of text (a resume, a job description) has to turn into a score, a rank, a shortlist. Both of my major projects tackle that problem from different angles: one measures the match between a resume and a role, the other goes a step further and automates the recruiter's next move. I like systems that don't just process information, but act on it responsibly.</p>
+      <div class="facts">
+        <div class="fact"><div class="num">8.68</div><div class="lbl">CGPA, B.Tech CSE (Data Science)</div></div>
+        <div class="fact"><div class="num">2</div><div class="lbl">AI recruitment systems built</div></div>
+        <div class="fact"><div class="num">4</div><div class="lbl">Certifications earned</div></div>
+        <div class="fact"><div class="num">2027</div><div class="lbl">Expected graduation</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="section-head"><span class="tag mono">02</span><h2>Toolbelt</h2></div>
+    <div class="skill-cols">
+      <div class="skill-col">
+        <h3>Languages</h3>
+        <div class="chip-list"><div class="chip">Java</div><div class="chip">Python</div></div>
+      </div>
+      <div class="skill-col">
+        <h3>AI / Data</h3>
+        <div class="chip-list"><div class="chip">NLP</div><div class="chip">Scikit-learn</div><div class="chip">Streamlit</div></div>
+      </div>
+      <div class="skill-col">
+        <h3>Web</h3>
+        <div class="chip-list"><div class="chip">HTML / CSS</div><div class="chip">JavaScript</div></div>
+      </div>
+      <div class="skill-col">
+        <h3>Tools</h3>
+        <div class="chip-list"><div class="chip">GitHub</div><div class="chip">Power BI</div><div class="chip">MySQL</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head"><span class="tag mono">03</span><h2>From scoring to acting</h2></div>
+    <div class="pipeline">
+      <div class="proj-item v1">
+        <div class="proj-num">01</div>
+        <div class="proj-card">
+          <div class="proj-top">
+            <h3>AI Resume Analyzer</h3>
+            <span class="badge">NLP · MATCH SCORING</span>
+          </div>
+          <p class="desc">Compares resumes against job descriptions using NLP, generating a match score and flagging missing skills — cutting down manual screening time for recruiters.</p>
+          <div class="stack"><span>Python</span><span>Streamlit</span><span>NLP</span><span>Scikit-learn</span></div>
+        </div>
+      </div>
+      <div class="proj-item v2">
+        <div class="proj-num">02</div>
+        <div class="proj-card">
+          <div class="proj-top">
+            <h3>Agentic AI Resume Analyzer</h3>
+            <span class="badge">AGENTIC · END-TO-END AUTOMATION</span>
+          </div>
+          <p class="desc">Took the scoring engine further into a full pipeline: the system shortlists applicants, ranks candidates, and triggers interview notifications on its own — moving from "score it" to "act on it."</p>
+          <div class="stack"><span>Python</span><span>Streamlit</span><span>NLP</span><span>Machine Learning</span><span>Scikit-learn</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="education">
+  <div class="wrap">
+    <div class="section-head"><span class="tag mono">04</span><h2>Education</h2></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <h3>B.Tech, Computer Science &amp; Engineering (Data Science)</h3>
+        <div class="meta">Malla Reddy Engineering College for Women · 2023 – 2027</div>
+        <p>CGPA: 8.68 / 10</p>
+      </div>
+      <div class="tl-item">
+        <h3>Intermediate (MPC)</h3>
+        <div class="meta">TSMS Model Junior College · 2021 – 2023</div>
+        <p>CGPA: 9.26 / 10</p>
+      </div>
+      <div class="tl-item">
+        <h3>Secondary School Certificate (SSC)</h3>
+        <div class="meta">Sri Gurudath High School · 2021</div>
+        <p>GPA: 10 / 10</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="credentials">
+  <div class="wrap">
+    <div class="section-head"><span class="tag mono">05</span><h2>Credentials &amp; experience</h2></div>
+    <div class="two-col">
+      <div>
+        <h3 style="font-size:13px;color:var(--text-mid);font-family:'JetBrains Mono',monospace;margin-bottom:16px;">CERTIFICATIONS</h3>
+        <div class="cert-grid">
+          <div class="cert">
+            <svg class="stamp" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+            <p>CodeChef — Java Practice</p>
+          </div>
+          <div class="cert">
+            <svg class="stamp" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+            <p>Programming Essentials in Python — Cisco</p>
+          </div>
+          <div class="cert">
+            <svg class="stamp" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+            <p>Pragati — Path to Future, Cohort 5</p>
+          </div>
+          <div class="cert">
+            <svg class="stamp" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+            <p>Pearson Me|Pro</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:13px;color:var(--text-mid);font-family:'JetBrains Mono',monospace;margin-bottom:16px;">INTERNSHIPS</h3>
+        <div class="card-lite">
+          <span class="when">JUN 15 – JUL 15, 2026</span>
+          <h3>Data Science Intern</h3>
+          <p>SkillCraft Technology — one-month internship applying data science fundamentals to real project tasks.</p>
+        </div>
+        <div class="card-lite">
+          <span class="when">APEX-PLANET</span>
+          <h3>Web Development Program</h3>
+          <p>Built projects with HTML, CSS, and JavaScript to strengthen front-end fundamentals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Let's build something<br><span class="hl">worth shortlisting.</span></h2>
+    <p>Open to SDE internship and entry-level opportunities.</p>
+    <div class="contact-row">
+      <a class="btn btn-primary" href="mailto:sanjanamaidala128@gmail.com">sanjanamaidala128@gmail.com</a>
+      <a class="btn btn-ghost" href="tel:+919652000237">+91 96520 00237</a>
+      <a class="btn btn-ghost" href="https://github.com/MamidalaSanjanaReddy" target="_blank">GitHub</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/sanjana-reddy-mamidala-59746531b" target="_blank">LinkedIn</a>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Mamidala Sanjana Reddy</span>
+      <span>Built with intent.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function scrollToSection(id){
+    var el = document.getElementById(id);
+    if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  }
+</script>
+</body>
+</html>
